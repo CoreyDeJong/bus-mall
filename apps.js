@@ -1,5 +1,6 @@
 'use strict'
 
+Bus.allImages = [];
 
 //Step 1) determine when image is clicked on//
 var busParent = document.getElementById('items');
@@ -13,11 +14,8 @@ var item3Index = null;
 
 
 //Global tracker of votes and views
-var imageVotes = 0;
-var totalRounds = 30;
-
-//global array
-// Bus.allImages=[];
+var NumberOfVotes = 0;
+var totalRounds = 25;
 
 
 //Step 4) Constructor Function
@@ -27,8 +25,8 @@ function Bus(name, image){
     this.clicked = 0;
     this.views = 0;
     
-// creating an array by pushing in the images
-Bus.allImages.push(this);
+    // creating an array by pushing in the images
+    Bus.allImages.push(this);
 }
 
 //random number between 0 and total length of the Bus.allImages array
@@ -73,22 +71,36 @@ function renderBus(){
 
 //create our clicking function
 var handleClickOnBus = function(event){
-    
+    NumberOfVotes++;
     //creating a tracker for each time each item is clicked
     var busClicked = event.target.id;
+    // console.log('busClicked', busClicked);
+    
 
     // if user does not click on an item1-3
-    if(busClicked === 'item1' || busClicked === 'item2' || busClicked === 'item3')imageVotes++;
-    else if (busClicked === 'item1'){
-        Bus.allImages['item1'].clicked++; 
-    } else if (busClicked === 'item2'){
-        Bus.allImages['item2'].clicked++; 
-    } else if (busClicked === 'item3'){
-        Bus.allImages['item3'].clicked++; 
-    } else{alert('try again')};
+    if(busClicked === 'item1' || busClicked === 'item2' || busClicked === 'item3') {
+        // console.log('global array', Bus.allImages);
+
+        // if image1 is selected, add 1 to Bus.allImages[item1Index].clicked++
+            if (busClicked === 'item1'){
+                Bus.allImages[item1Index].clicked++
+            }
+            else if (busClicked === 'item2'){
+                Bus.allImages[item2Index].clicked++
+            }
+            else (busClicked === 'item3') 
+                Bus.allImages[item3Index].clicked++
+            
+    
+
+    } else {
+        alert('try again');
+    }
+       
+    
     
     //total rounds exceeds 10/25, display results
-    if(imageVotes === totalRounds){
+    if(NumberOfVotes === totalRounds){
         busParent.removeEventListener('click', handleClickOnBus);
     alert('thank you for your votes');
     
@@ -96,14 +108,10 @@ var handleClickOnBus = function(event){
         var bus = Bus.allImages[i];
         console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
     }
-} else {renderBus()};
+    } else {
+        renderBus();
+    };
 }
-
-
-// console.log('item1');
-// console.log('item2');
-// console.log('item3');
-Bus.allImages = [];
 
 //Instantiating new items and pushing them into the array
 
@@ -133,4 +141,4 @@ renderBus();
 
 
 //attach an event listener
-busParent.addEventListener('click', handleClickOnBus)
+busParent.addEventListener('click', handleClickOnBus, true);
