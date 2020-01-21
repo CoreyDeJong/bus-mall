@@ -2,7 +2,7 @@
 
 
 //Step 1) determine when image is clicked on//
-var busParent = document.getElementById('item');
+var busParent = document.getElementById('items');
 var item1 = document.getElementById('item1');
 var item2 = document.getElementById('item2');
 var item3 = document.getElementById('item3');
@@ -12,12 +12,12 @@ var item2Index = null;
 var item3Index = null;
 
 
-//
-// imagevotes = 0;
-// var totalVotes = 10;
+//Global tracker of votes and views
+var imageVotes = 0;
+var totalRounds = 25;
 
 //global array
-Bus.allImages=[];
+// Bus.allImages=[];
 
 
 //Step 4) Constructor Function
@@ -61,59 +61,67 @@ item3.src = Bus.allImages[item3Index].image;
 
 
 
-//Step 3) create our clicking function, must be defined before our event listener. Variable is pointing to a place in the memory of the site where each instance is recorded.
+//create our clicking function
 var handleClickOnBus = function(event){
     
-//Step 6) creating a tracker for each time each item is clicked
+//creating a tracker for each time each item is clicked
     var busClicked = event.target.id;
+
+   // if user does not click on an item1-3
+    if(busClicked === 'item1' || busClicked === 'item2' || busClicked === 'item3')imageVotes++;
+    else if (busClicked === 'item1'){
+        Bus.allImages['item1'].clicked++; 
+    } else if (busClicked === 'item2'){
+        Bus.allImages['item2'].clicked++; 
+    } else if (busClicked === 'item3'){
+        Bus.allImages['item3'].clicked++; 
+    }
+
+    // else{alert('try again')}
+
+//total rounds exceeds 10/25, display results
+    if(imageVotes === totalRounds){
+    busParent.removeEventListener('click', handleClickOnBus);
+    alert('thank you for your votes');
+
+    for (var i = 0; i < Bus.allImages.length; i++){
+        var bus = Bus.allImages[i];
+        console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
+    }
+} else {renderBus()};
 }
 
-//Step 5) Instantiating new items and pushing them into the array
+// console.log('item1');
+// console.log('item2');
+// console.log('item3');
+Bus.allImages = [];
 
-var bag = new Bus('bag', 'img/bag.jpg');
-var banana = new Bus('banana', '/img/banana.jpg');
-var bathroom = new Bus('bathroom', '/img/bathroom.jpg');
-var boots = new Bus('boots', '/img/boots.jpg');
-var breakfast = new Bus('breakfast', '/img/breakfast.jpg');
-var bubblegum = new Bus('bubblegum', '/img/bubblegum.jpg');
-var chair = new Bus('chair', '/img/chair.jpg');
-var cthulhu = new Bus('cthulhu', '/img/cthulhu.jpg');
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
-// var  = new Busmall ('', '/img/.jpg')
+//Instantiating new items and pushing them into the array
 
+new Bus('bag', 'img/bag.jpg');
+new Bus('banana', '/img/banana.jpg');
+new Bus('bathroom', '/img/bathroom.jpg');
+new Bus('boots', '/img/boots.jpg');
+new Bus('breakfast', '/img/breakfast.jpg');
+new Bus('bubblegum', '/img/bubblegum.jpg');
+new Bus('chair', '/img/chair.jpg');
+new Bus('cthulhu', '/img/cthulhu.jpg');
+new Bus('dogduck', '/img/dogduck.jpg')
+new Bus('dragon', '/img/dragon.jpg')
+new Bus('pen', '/img/pen.jpg')
+new Bus('petsweep', '/img/petsweep.jpg')
+new Bus('scissors', '/img/scissors.jpg')
+new Bus('shark', '/img/shark.jpg')
+new Bus('sweep', '/img/sweep.png')
+new Bus('tauntaun', '/img/tauntaun.jpg')
+new Bus('unicorn', '/img/unicorn.jpg')
+new Bus('usb', '/img/usb.gif')
+new Bus('watercan', '/img/watercan.jpg')
+new Bus('wineglass', '/img/wineglass.jpg')
 
 
 renderBus();
 
 
-
-//Step 2) attach an event listener
-// busParent.addEventListener('click', handleClickOnBus)
-
-
-
-
-
-// Do :use the random number generator to get a number for the 1st/left item. Use the random number generator to get a number for the 2nd/right item.
-//while: continue to do the do if the random numbers are ====.
-
-//take the random numbers that were created and use that number to go through the global array of all the images (every instantiation was populated into a global array)
-
-// take that image from the globbl array and insert it into the html.
+//attach an event listener
+busParent.addEventListener('click', handleClickOnBus)
