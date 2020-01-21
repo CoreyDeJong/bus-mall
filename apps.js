@@ -14,7 +14,7 @@ var item3Index = null;
 
 //Global tracker of votes and views
 var imageVotes = 0;
-var totalRounds = 25;
+var totalRounds = 30;
 
 //global array
 // Bus.allImages=[];
@@ -26,9 +26,9 @@ function Bus(name, image){
     this.image = image;
     this.clicked = 0;
     this.views = 0;
-
+    
 // creating an array by pushing in the images
-    Bus.allImages.push(this);
+Bus.allImages.push(this);
 }
 
 //random number between 0 and total length of the Bus.allImages array
@@ -38,6 +38,9 @@ function randomItem(){
 }
 // console.log(randomItem);
 
+//create an array with the output from the last round
+var indexArray = [];
+
 
 //generate a random number for Item1 and Item 2, Do again if the numbers are the same
 function renderBus(){
@@ -45,29 +48,39 @@ function renderBus(){
         item1Index = randomItem();
         item2Index = randomItem(); 
         item3Index = randomItem(); 
-} while(item1Index === item2Index || item1Index === item3Index || item2Index === item3Index);
+        //index array from top, push in item1Index, ..... into array position
+        indexArray[0] = [item1Index];
+        indexArray[1] = [item2Index];
+        indexArray[2] = [item3Index];
+    } while(item1Index === item2Index || item1Index === item3Index || item2Index === item3Index || indexArray.includes(item1Index) || indexArray.includes(item2Index) || indexArray.includes(item3Index));
+    // or index array. allimages
+    
+    //add occurrence of view in the constructor for each of the random items that were generated in the do loop.
+    Bus.allImages[item1Index].views++;
+    Bus.allImages[item2Index].views++;
+    Bus.allImages[item3Index].views++;
+    
+    
+    //go through the array of all images and get the index# from the randomitem# that was generated in the do loop. select that image and insert it into the html section
+    
+    item1.src = Bus.allImages[item1Index].image;
+    item2.src = Bus.allImages[item2Index].image;
+    item3.src = Bus.allImages[item3Index].image;
 
-//add occurrence of view in the constructor for each of the random items that were generated in the do loop.
-Bus.allImages[item1Index].views++;
-Bus.allImages[item2Index].views++;
 
-
-//go through the array of all images and get the index# from the randomitem# that was generated in the do loop. select that image and insert it into the html section
-
-item1.src = Bus.allImages[item1Index].image;
-item2.src = Bus.allImages[item2Index].image;
-item3.src = Bus.allImages[item3Index].image;
 }
+
+
 
 
 
 //create our clicking function
 var handleClickOnBus = function(event){
     
-//creating a tracker for each time each item is clicked
+    //creating a tracker for each time each item is clicked
     var busClicked = event.target.id;
 
-   // if user does not click on an item1-3
+    // if user does not click on an item1-3
     if(busClicked === 'item1' || busClicked === 'item2' || busClicked === 'item3')imageVotes++;
     else if (busClicked === 'item1'){
         Bus.allImages['item1'].clicked++; 
@@ -75,21 +88,20 @@ var handleClickOnBus = function(event){
         Bus.allImages['item2'].clicked++; 
     } else if (busClicked === 'item3'){
         Bus.allImages['item3'].clicked++; 
-    }
-
-    // else{alert('try again')}
-
-//total rounds exceeds 10/25, display results
+    } else{alert('try again')};
+    
+    //total rounds exceeds 10/25, display results
     if(imageVotes === totalRounds){
-    busParent.removeEventListener('click', handleClickOnBus);
+        busParent.removeEventListener('click', handleClickOnBus);
     alert('thank you for your votes');
-
+    
     for (var i = 0; i < Bus.allImages.length; i++){
         var bus = Bus.allImages[i];
         console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
     }
 } else {renderBus()};
 }
+
 
 // console.log('item1');
 // console.log('item2');
