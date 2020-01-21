@@ -48,10 +48,6 @@ function renderBus(){
         item1Index = randomItem();
         item2Index = randomItem(); 
         item3Index = randomItem(); 
-        //index array from top, push in item1Index, ..... into array position
-        indexArray[0] = [item1Index];
-        indexArray[1] = [item2Index];
-        indexArray[2] = [item3Index];
     } while(item1Index === item2Index || item1Index === item3Index || item2Index === item3Index || indexArray.includes(item1Index) || indexArray.includes(item2Index) || indexArray.includes(item3Index));
     // or index array. allimages
     
@@ -66,12 +62,13 @@ function renderBus(){
     item1.src = Bus.allImages[item1Index].image;
     item2.src = Bus.allImages[item2Index].image;
     item3.src = Bus.allImages[item3Index].image;
-
+    
+    //index array from top, push in item1Index, ..... into array position
+    indexArray[0] = item1Index;
+    indexArray[1] = item2Index;
+    indexArray[2] = item3Index;
 
 }
-
-
-
 
 
 //create our clicking function
