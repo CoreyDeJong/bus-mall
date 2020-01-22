@@ -15,7 +15,7 @@ var item3Index = null;
 
 //Global tracker of votes and views
 var NumberOfVotes = 0;
-var totalRounds = 25;
+var totalRounds = 5;
 
 
 //Step 4) Constructor Function
@@ -36,7 +36,7 @@ function randomItem(){
 }
 // console.log(randomItem);
 
-//create an array with the output from the last round
+//create an array with the output from the last round, just to ensure items are not repeating per round
 var indexArray = [];
 
 
@@ -103,6 +103,8 @@ var handleClickOnBus = function(event){
     if(NumberOfVotes === totalRounds){
         busParent.removeEventListener('click', handleClickOnBus);
     alert('thank you for your votes');
+    //add chart after all votes have been counted
+    renderChart('my-chart');
     
     for (var i = 0; i < Bus.allImages.length; i++){
         var bus = Bus.allImages[i];
@@ -142,3 +144,46 @@ renderBus();
 
 //attach an event listener
 busParent.addEventListener('click', handleClickOnBus, true);
+
+
+///////////////Chart JS//////////////////////
+
+
+// creates click data, and passes that into a chart js constructor
+// var button = document.getElementById('draw');
+// button.addEventListener('click', renderChart);
+function renderChart() {
+  var labelData = [];
+  var clickData = [];
+  for (var i = 0; i < Bus.allImages.length; i++) {
+    labelData.push(Bus.allImages[i].name);
+    clickData.push(Bus.allImages[i].clicks);
+  }
+
+  var ctx = document.getElementById('my-chart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labelData,
+      datasets: [{
+        label: '# of Clicks',
+        data: clickData,
+        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      }, {
+        label: '# of Views',
+        data: [0, 3, 5, 2, 6, 3, 7, 3, 2],
+        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  })
+}
