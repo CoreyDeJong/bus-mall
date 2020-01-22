@@ -103,16 +103,16 @@ var handleClickOnBus = function(event){
     if(NumberOfVotes === totalRounds){
         busParent.removeEventListener('click', handleClickOnBus);
     alert('thank you for your votes');
-    //add chart after all votes have been counted
-    renderChart('my-chart');
     
     for (var i = 0; i < Bus.allImages.length; i++){
         var bus = Bus.allImages[i];
         console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
     }
-    } else {
-        renderBus();
-    };
+    //add chart after all votes have been counted
+    renderChart('my-chart');
+} else {
+    renderBus();
+};
 }
 
 //Instantiating new items and pushing them into the array
@@ -155,9 +155,11 @@ busParent.addEventListener('click', handleClickOnBus, true);
 function renderChart() {
   var labelData = [];
   var clickData = [];
+  var viewData = [];
   for (var i = 0; i < Bus.allImages.length; i++) {
     labelData.push(Bus.allImages[i].name);
-    clickData.push(Bus.allImages[i].clicks);
+    clickData.push(Bus.allImages[i].clicked);
+    viewData.push(Bus.allImages[i].views);
   }
 
   var ctx = document.getElementById('my-chart').getContext('2d');
@@ -165,15 +167,16 @@ function renderChart() {
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: labelData,
-      datasets: [{
+        labels: labelData,
+        datasets: [{
         label: '# of Clicks',
         data: clickData,
-        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      }, {
+        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    }, 
+      {
         label: '# of Views',
-        data: [0, 3, 5, 2, 6, 3, 7, 3, 2],
-        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        data: viewData,
+        backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       }]
     },
     options: {
