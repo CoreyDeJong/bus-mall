@@ -107,9 +107,9 @@ var handleClickOnBus = function(event){
     for (var i = 0; i < Bus.allImages.length; i++){
         var bus = Bus.allImages[i];
         console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
+        //add chart after all votes have been counted
+        renderChart('my-chart');
     }
-    //add chart after all votes have been counted
-    renderChart('my-chart');
 } else {
     renderBus();
 };
@@ -139,7 +139,6 @@ new Bus('watercan', '/img/watercan.jpg')
 new Bus('wineglass', '/img/wineglass.jpg')
 
 
-renderBus();
 
 
 //attach an event listener
@@ -160,16 +159,16 @@ function renderChart() {
     labelData.push(Bus.allImages[i].name);
     clickData.push(Bus.allImages[i].clicked);
     viewData.push(Bus.allImages[i].views);
-  }
+}
 
   var ctx = document.getElementById('my-chart').getContext('2d');
-
+  
   new Chart(ctx, {
-    type: 'bar',
+      type: 'bar',
     data: {
         labels: labelData,
         datasets: [{
-        label: '# of Clicks',
+            label: '# of Clicks',
         data: clickData,
         backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     }, 
@@ -180,13 +179,15 @@ function renderChart() {
       }]
     },
     options: {
-      scales: {
+        scales: {
         yAxes: [{
           ticks: {
             beginAtZero: true
           }
         }]
-      }
     }
-  })
 }
+})
+}
+
+renderBus();
