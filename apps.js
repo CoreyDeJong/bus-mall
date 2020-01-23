@@ -15,7 +15,7 @@ var item3Index = null;
 
 //Global tracker of votes and views
 var NumberOfVotes = 0;
-var totalRounds = 5;
+var totalRounds = 25;
 
 
 //Step 4) Constructor Function
