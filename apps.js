@@ -113,7 +113,52 @@ var handleClickOnBus = function(event){
 } else {
     renderBus();
 };
+ updateStorage();
 }
+
+//function 1
+function updateStorage(){
+// use global variable of Bus.allImages = [];
+var arrayString = JSON.stringify(Bus.allImages);
+//transfer to local storage data using stringify
+localStorage.setItem('Key',arrayString);
+}
+
+//function 2
+function getItems (){
+    if(localStorage.length > 0)
+        //get string from local storage and call it storageData
+           var storageData = localStorage.getItem('Key');
+       
+           // take storage data and parse it into an object
+           var storageObject = JSON.parse(storageData);
+
+           //take object and run through constructor
+           Bus.allImages = storageObject;
+
+           renderChart();
+    }
+    //run chart function using render to populate data into local storage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Instantiating new items and pushing them into the array
 
