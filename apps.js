@@ -1,5 +1,6 @@
 'use strict'
 
+//global array of all images
 Bus.allImages = [];
 
 //Step 1) determine when image is clicked on//
@@ -8,6 +9,7 @@ var item1 = document.getElementById('item1');
 var item2 = document.getElementById('item2');
 var item3 = document.getElementById('item3');
 
+//create an empty index to populate so it can be used as a comparison to prevent re-showing images
 var item1Index = null;
 var item2Index = null;
 var item3Index = null;
@@ -61,7 +63,7 @@ function renderBus(){
     item2.src = Bus.allImages[item2Index].image;
     item3.src = Bus.allImages[item3Index].image;
     
-    //index array from top, push in item1Index, ..... into array position
+    //index array from top, push in item1Index, ..... into array position to use as history for the next round.
     indexArray[0] = item1Index;
     indexArray[1] = item2Index;
     indexArray[2] = item3Index;
@@ -77,7 +79,7 @@ var handleClickOnBus = function(event){
     // console.log('busClicked', busClicked);
     
 
-    // if user does not click on an item1-3
+    // checking to see if user does not click on an item1-3
     if(busClicked === 'item1' || busClicked === 'item2' || busClicked === 'item3') {
         // console.log('global array', Bus.allImages);
 
@@ -90,10 +92,8 @@ var handleClickOnBus = function(event){
             }
             else (busClicked === 'item3') 
                 Bus.allImages[item3Index].clicked++
-            
-    
-
-    } else {
+            } 
+    else {
         alert('try again');
     }
        
@@ -104,27 +104,28 @@ var handleClickOnBus = function(event){
         busParent.removeEventListener('click', handleClickOnBus);
     alert('thank you for your votes');
     
-    for (var i = 0; i < Bus.allImages.length; i++){
-        var bus = Bus.allImages[i];
-        console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
-        //add chart after all votes have been counted
-        renderChart('my-chart');
-    }
+        for (var i = 0; i < Bus.allImages.length; i++){
+            var bus = Bus.allImages[i];
+            console.log(`${bus.name} received ${bus.clicked} votes with ${bus.views} views.`);
+            //add chart after all votes have been counted
+            renderChart('my-chart');
+        
+        }
 } else {
     renderBus();
 };
  updateStorage();
 }
 
-//function 1
+//get data from global array and stringify
 function updateStorage(){
-// use global variable of Bus.allImages = [];
+// taking the data in Bus.allImages array and using stringify to turn into a string and calling it a variable called arrayString.
 var arrayString = JSON.stringify(Bus.allImages);
-//transfer to local storage data using stringify
+//local storage is created using the setItem, the key is called key and the arrayString is the strigified data.
 localStorage.setItem('Key',arrayString);
 }
 
-//function 2
+//take string data and parse back into an object
 function getItems (){
     if(localStorage.length > 0)
         //get string from local storage and call it storageData
@@ -138,26 +139,6 @@ function getItems (){
 
            renderChart();
     }
-    //run chart function using render to populate data into local storage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //Instantiating new items and pushing them into the array
@@ -184,14 +165,8 @@ new Bus('watercan', '/img/watercan.jpg')
 new Bus('wineglass', '/img/wineglass.jpg')
 
 
-
-
 //attach an event listener
 busParent.addEventListener('click', handleClickOnBus, true);
-
-
-///////////////Chart JS//////////////////////
-
 
 // creates click data, and passes that into a chart js constructor
 // var button = document.getElementById('draw');
