@@ -144,25 +144,25 @@ function getItems (){
 //Instantiating new items and pushing them into the array
 
 new Bus('bag', 'img/bag.jpg');
-new Bus('banana', '/img/banana.jpg');
-new Bus('bathroom', '/img/bathroom.jpg');
-new Bus('boots', '/img/boots.jpg');
-new Bus('breakfast', '/img/breakfast.jpg');
-new Bus('bubblegum', '/img/bubblegum.jpg');
-new Bus('chair', '/img/chair.jpg');
-new Bus('cthulhu', '/img/cthulhu.jpg');
-new Bus('dogduck', '/img/dogduck.jpg')
-new Bus('dragon', '/img/dragon.jpg')
-new Bus('pen', '/img/pen.jpg')
-new Bus('petsweep', '/img/petsweep.jpg')
-new Bus('scissors', '/img/scissors.jpg')
-new Bus('shark', '/img/shark.jpg')
-new Bus('sweep', '/img/sweep.png')
-new Bus('tauntaun', '/img/tauntaun.jpg')
-new Bus('unicorn', '/img/unicorn.jpg')
-new Bus('usb', '/img/usb.gif')
-new Bus('watercan', '/img/watercan.jpg')
-new Bus('wineglass', '/img/wineglass.jpg')
+new Bus('banana', 'img/banana.jpg');
+new Bus('bathroom', 'img/bathroom.jpg');
+new Bus('boots', 'img/boots.jpg');
+new Bus('breakfast', 'img/breakfast.jpg');
+new Bus('bubblegum', 'img/bubblegum.jpg');
+new Bus('chair', 'img/chair.jpg');
+new Bus('cthulhu', 'img/cthulhu.jpg');
+new Bus('dogduck', 'img/dogduck.jpg')
+new Bus('dragon', 'img/dragon.jpg')
+new Bus('pen', 'img/pen.jpg')
+new Bus('petsweep', 'img/petsweep.jpg')
+new Bus('scissors', 'img/scissors.jpg')
+new Bus('shark', 'img/shark.jpg')
+new Bus('sweep', 'img/sweep.png')
+new Bus('tauntaun', 'img/tauntaun.jpg')
+new Bus('unicorn', 'img/unicorn.jpg')
+new Bus('usb', 'img/usb.gif')
+new Bus('watercan', 'img/watercan.jpg')
+new Bus('wineglass', 'img/wineglass.jpg')
 
 
 //attach an event listener
